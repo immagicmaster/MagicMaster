@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Magic_Master Profile</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --text: #f0f0f0;
+      --text-sub: #aaaaaa;
+      --magic-bg: #5b21b6;
+      --magic-text: #c4b5fd;
+      --icon-filter: invert(1);
+      --border: rgba(255,255,255,0.08);
+    }
+    .light {
+      --bg: #f5f5f5;
+      --text: #111111;
+      --text-sub: #555555;
+      --magic-bg: #7c3aed;
+      --magic-text: #ffffff;
+      --icon-filter: invert(0);
+      --border: rgba(0,0,0,0.1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.4s ease, color 0.4s ease;
+      padding: 2rem 1.5rem 4rem;
+      position: relative;
+    }
+
+    /* Theme toggle */
+    #theme-btn {
+      position: fixed;
+      top: 1.2rem;
+      left: 1.2rem;
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.3s, background 0.3s;
+      z-index: 100;
+    }
+    #theme-btn:hover { background: var(--border); }
+    #theme-btn svg { width: 20px; height: 20px; fill: var(--text); transition: fill 0.3s; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      animation: fadeUp 0.7s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .headline {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.4rem, 8vw, 4rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .Magic_Master-pill {
+      background: var(--Magic-bg);
+      color: var(--Magic-text);
+      padding: 0.05em 0.45em;
+      border-radius: 12px;
+      display: inline-block;
+      transition: background 0.4s, color 0.4s;
+      letter-spacing: 0.01em;
+    }
+
+    .sub {
+      margin-top: 1.1rem;
+      color: var(--text-sub);
+      font-size: 1rem;
+      line-height: 1.7;
+      animation: fadeUp 0.7s 0.15s ease both;
+    }
+
+    /* Tech icons */
+    .section-label {
+      margin-top: 2.4rem;
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-sub);
+      animation: fadeUp 0.7s 0.25s ease both;
+    }
+
+    .icons-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.1rem;
+      justify-content: center;
+      margin-top: 1rem;
+      animation: fadeUp 0.7s 0.35s ease both;
+    }
+
+    .icon-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      opacity: 0.85;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .icon-item:hover { opacity: 1; transform: translateY(-3px); }
+
+    .icon-item img {
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      filter: var(--icon-filter);
+      transition: filter 0.4s;
+    }
+    .icon-item span {
+      font-size: 0.65rem;
+      color: var(--text-sub);
+      letter-spacing: 0.05em;
+    }
+
+    /* Social row */
+    .social-row {
+      display: flex;
+      gap: 1.6rem;
+      margin-top: 2.8rem;
+      justify-content: center;
+      animation: fadeUp 0.7s 0.5s ease both;
+    }
+
+    .social-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.2s, transform 0.2s;
+      background: none;
+      border: none;
+      color: var(--text-sub);
+      font-family: inherit;
+      font-size: 0.68rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      position: relative;
+    }
+    .social-btn:hover { opacity: 1; transform: translateY(-3px); }
+    .social-btn img {
+      width: 34px;
+      height: 34px;
+      filter: var(--icon-filter);
+      transition: filter 0.4s;
+    }
+
+    /* Toast */
+    #toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(12px);
+      background: var(--Magic-bg);
+      color: #fff;
+      padding: 0.55rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s, transform 0.25s;
+      white-space: nowrap;
+      z-index: 200;
+    }
+    #toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Theme toggle -->
+  <button id="theme-btn" aria-label="Toggle theme">
+    <svg id="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <!-- Sun icon -->
+      <path d="M12 4.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 4.5ZM12 16.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75ZM4.5 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 4.5 12ZM16.5 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM6.697 7.757a.75.75 0 0 1 1.06-1.06l1.061 1.06a.75.75 0 1 1-1.061 1.061L6.697 7.757ZM15.182 16.243a.75.75 0 0 1 1.06-1.061l1.061 1.06a.75.75 0 0 1-1.06 1.062l-1.061-1.061ZM7.757 17.303a.75.75 0 0 1-1.06-1.06l1.06-1.062a.75.75 0 0 1 1.062 1.061l-1.062 1.061ZM16.243 8.818a.75.75 0 0 1-1.061-1.061l1.06-1.06a.75.75 0 0 1 1.062 1.06l-1.061 1.061ZM12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"/>
+    </svg>
+  </button>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1 class="headline">
+      Hi, I'm <span class="Magic_Master-pill">Magic_Master</span>
+    </h1>
+
+    <p class="sub">
+      a 15.5 year-old developer<br/>
+      by the way, i also make coding and utility stuff
+    </p>
+
+    <p class="section-label">Languages &amp; Tools</p>
+
+    <div class="icons-row">
+      <!-- Lua -->
+      <div class="icon-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/lua/lua-original.svg" alt="Lua"/>
+        <span>Lua</span>
+      </div>
+      <!-- Luau (Roblox) — no devicon, use text badge -->
+      <div class="icon-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/lua/lua-plain-wordmark.svg" alt="Luau" style="border-radius:6px; background:#00a2ff; padding:2px;"/>
+        <span>Luau</span>
+      </div>
+      <!-- Roblox Studio -->
+      <div class="icon-item">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Roblox_Logo.svg/512px-Roblox_Logo.svg.png" alt="Roblox Studio" style="filter:invert(0)!important;"/>
+        <span>Roblox</span>
+      </div>
+      <!-- VS Code -->
+      <div class="icon-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" alt="VS Code" style="filter:none!important;"/>
+        <span>VS Code</span>
+      </div>
+      <!-- Python -->
+      <div class="icon-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" alt="Python" style="filter:none!important;"/>
+        <span>Python</span>
+      </div>
+      <!-- JavaScript -->
+      <div class="icon-item">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript" style="filter:none!important; border-radius:5px;"/>
+        <span>JS</span>
+      </div>
+    </div>
+
+    <!-- Social -->
+    <div class="social-row">
+      <button class="social-btn" id="github-btn" aria-label="Copy GitHub link">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" alt="GitHub"/>
+        GitHub
+      </button>
+      <button class="social-btn" id="discord-btn" aria-label="Copy Discord link">
+        <img src="https://assets-global.website-files.com/6257adef93867e50d84d30e2/636e0a69f118df70ad7828d4_icon_clyde_blurple_RGB.svg" alt="Discord" style="filter:none!important;"/>
+        Discord
+      </button>
+    </div>
+  </div>
+
+  <div id="toast">Copied to clipboard!</div>
+
+  <script>
+    // ── Theme toggle ──────────────────────────────────────────
+    const body = document.body;
+    const btn  = document.getElementById('theme-btn');
+    const icon = document.getElementById('theme-icon');
+
+    const SUN_PATH = `<path d="M12 4.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 12 4.5ZM12 16.5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5a.75.75 0 0 1 .75-.75ZM4.5 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5A.75.75 0 0 1 4.5 12ZM16.5 12a.75.75 0 0 1 .75-.75h1.5a.75.75 0 0 1 0 1.5h-1.5a.75.75 0 0 1-.75-.75ZM6.697 7.757a.75.75 0 0 1 1.06-1.06l1.061 1.06a.75.75 0 1 1-1.061 1.061L6.697 7.757ZM15.182 16.243a.75.75 0 0 1 1.06-1.061l1.061 1.06a.75.75 0 0 1-1.06 1.062l-1.061-1.061ZM7.757 17.303a.75.75 0 0 1-1.06-1.06l1.06-1.062a.75.75 0 0 1 1.062 1.061l-1.062 1.061ZM16.243 8.818a.75.75 0 0 1-1.061-1.061l1.06-1.06a.75.75 0 0 1 1.062 1.06l-1.061 1.061ZM12 8.25a3.75 3.75 0 1 0 0 7.5 3.75 3.75 0 0 0 0-7.5Z"/>`;
+
+    const MOON_PATH = `<path d="M21.75 12A9.75 9.75 0 0 1 9.104 21.524a.75.75 0 0 1 .228-1.482 8.25 8.25 0 0 0 9.126-9.126.75.75 0 0 1 1.482-.228A9.733 9.733 0 0 1 21.75 12ZM11.25 2.25A9.75 9.75 0 0 0 2.25 12c0 .342.017.68.051 1.013a.75.75 0 0 0 1.495-.089A8.25 8.25 0 0 1 11.25 3.75a.75.75 0 0 0 0-1.5ZM2.47 7.72a.75.75 0 0 0 1.06 1.06l1.5-1.5A.75.75 0 0 0 3.97 6.22l-1.5 1.5ZM20.53 7.72l-1.5-1.5a.75.75 0 1 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.06-1.06ZM12 2.25a.75.75 0 0 0-.75.75v2.25a.75.75 0 0 0 1.5 0V3a.75.75 0 0 0-.75-.75ZM3 11.25a.75.75 0 0 0 0 1.5h2.25a.75.75 0 0 0 0-1.5H3Z"/>`;
+
+    let dark = true;
+
+    btn.addEventListener('click', () => {
+      dark = !dark;
+      body.classList.toggle('light', !dark);
+      icon.innerHTML = dark ? SUN_PATH : MOON_PATH;
+    });
+
+    // ── Copy links ────────────────────────────────────────────
+    const GITHUB_URL  = 'https://github.com/notzanocoddz';
+    const DISCORD_URL = 'https://discord.com/users/notzanocoddz';
+
+    const toast = document.getElementById('toast');
+    let toastTimer;
+
+    function showToast(msg) {
+      toast.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 2000);
+    }
+
+    function copyText(text, label) {
+      navigator.clipboard.writeText(text)
+        .then(() => showToast(`${label} link copied!`))
+        .catch(() => {
+          // fallback
+          const el = document.createElement('textarea');
+          el.value = text;
+          document.body.appendChild(el);
+          el.select();
+          document.execCommand('copy');
+          document.body.removeChild(el);
+          showToast(`${label} link copied!`);
+        });
+    }
+
+    document.getElementById('github-btn').addEventListener('click',  () => copyText(GITHUB_URL,  'GitHub'));
+    document.getElementById('discord-btn').addEventListener('click', () => copyText(DISCORD_URL, 'Discord'));
+  </script>
+</body>
+</html>
